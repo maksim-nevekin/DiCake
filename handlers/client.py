@@ -8,7 +8,8 @@ from data_base import sqlite_db
 # @dp.message_handler(commands=['start', 'help'])
 async def command_start(message: types.Message):
     try:
-        await bot.send_message(message.from_user.id, 'Приятного аппетита', reply_markup=keboard_client)
+        await bot.send_message(message.from_user.id, 'Привет, выбери интересующий тебя пункт',
+                               reply_markup=keboard_client)
         await message.delete()
     except:
         await message.reply('Общение с ботом через ЛС, нипишите ему:\nhttps://t.me/DiCake_bot')

@@ -19,7 +19,6 @@ class FSMAdmin(StatesGroup):
 
 
 # Получаем ID текущего модератора
-# @dp.message_handler(commands=['moderator'], is_chat_admin=True)
 async def make_changes_command(message: types.Message):
     global ID
     ID = message.from_user.id
@@ -28,7 +27,6 @@ async def make_changes_command(message: types.Message):
 
 
 # Начало диалога загрузки нового пункта меню
-# @dp.message_handler(commands='Загрузить', state=None)
 async def cm_start(message: types.Message):
     if message.from_user.id == ID:
         await FSMAdmin.photo.set()
@@ -36,8 +34,6 @@ async def cm_start(message: types.Message):
 
 
 # Выход из состояния
-# @dp.message_handler(state='*', commands='отмена')
-# @dp.message_handler(Text(equals='отмена', ignore_case=True), state='*')
 async def cancel_habdler(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
         current_state = await state.get_state()
@@ -48,7 +44,6 @@ async def cancel_habdler(message: types.Message, state: FSMContext):
 
 
 # Ловим первый ответ и пишем в словарь
-# @dp.message_handler(content_types=['photo'], state=FSMAdmin.photo)
 async def load_photo(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
         async with state.proxy() as data:
@@ -58,7 +53,6 @@ async def load_photo(message: types.Message, state: FSMContext):
 
 
 #Ловим второй ответ
-# @dp.message_handler(state=FSMAdmin.name)
 async def load_name(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
         async with state.proxy() as data:
@@ -68,7 +62,6 @@ async def load_name(message: types.Message, state: FSMContext):
 
 
 #Ловим третий ответ
-# @dp.message_handler(state=FSMAdmin.description)
 async def load_description(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
         async with state.proxy() as data:
@@ -78,7 +71,6 @@ async def load_description(message: types.Message, state: FSMContext):
 
 
 #Ловим последний ответ и используем полученные данные
-# @dp.message_handler(state=FSMAdmin.price)
 async def load_price(message: types.Message, state: FSMContext):
     if message.from_user.id == ID:
         async with state.proxy() as data:
